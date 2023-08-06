@@ -684,8 +684,8 @@ public class UnitType extends UnlockableContent{
 
         if(pathCost == null){
             pathCost =
-                example instanceof WaterMovec ? ControlPathfinder.costNaval :
-                allowLegStep ? ControlPathfinder.costLegs :
+                naval ? ControlPathfinder.costNaval :
+                allowLegStep || example instanceof Crawlc ? ControlPathfinder.costLegs :
                 hovering ? ControlPathfinder.costHover :
                 ControlPathfinder.costGround;
         }
@@ -935,6 +935,8 @@ public class UnitType extends UnlockableContent{
     @Override
     public void createIcons(MultiPacker packer){
         super.createIcons(packer);
+
+        if(constructor == null) throw new IllegalArgumentException("No constructor set up for unit '" + name + "'. Make sure you assign a valid value to `constructor`, e.g. `constructor = UnitEntity::new`");
 
         sample = constructor.get();
 
